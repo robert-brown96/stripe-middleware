@@ -8,10 +8,12 @@ export async function main(event) {
     console.log(JSON.stringify(event));
     const keys = Object.keys(data);
 
-    let setVals = keys.map(k => {
+    let setVals = keys.reduce((result, k) => {
+        console.log(`checking key ${k}`);
         if (data[k] && data[k] !== "" && data[k] !== "null")
-            return `${k} = :${k}`;
-    });
+            result.push(`${k} = :${k}`);
+        return result;
+    }, []);
     console.log(`sets ${JSON.stringify(setVals)}`);
 
     const updateParams = {
