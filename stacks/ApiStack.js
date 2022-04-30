@@ -26,6 +26,7 @@ export default class ApiStack extends sst.Stack {
             },
             routes: {
                 "GET    /": "/src/lambda.handler",
+                // netsuite account endpoints
                 "GET    /netsuiteaccounts":
                     "src/routes/NetsuiteAccounts/list.main",
                 "POST   /netsuiteaccounts":
@@ -36,9 +37,12 @@ export default class ApiStack extends sst.Stack {
                     "src/routes/NetsuiteAccounts/delete.main",
                 "GET    /netsuiteaccounts/{id}":
                     "src/routes/NetsuiteAccounts/get.main",
+                // stripe account endpoints
                 "POST    /stripeaccounts":
                     "src/routes/StripeAccounts/create.main",
-                "GET    /stripeaccounts": "src/routes/StripeAccounts/list.main"
+                "GET    /stripeaccounts": "src/routes/StripeAccounts/list.main",
+                "GET    /stripeaccounts/{id}":
+                    "src/routes/StripeAccounts/get.main"
             }
         });
 
