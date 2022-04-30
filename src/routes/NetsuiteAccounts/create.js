@@ -47,10 +47,20 @@ export async function main(event) {
         }
     };
 
-    await dynamoDb.put(createParams).promise();
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify(createParams.Item)
-    };
+    // TODO: Not rejecting dups
+    return dynamoDb
+        .put(createParams)
+        .promise()
+        .then(res => {
+            console.log(`success ${JSON.stringify(res)}`);
+            return JSON.stringify({ success: true, realm: createParams.realm });
+        })
+        .catch(e => {
+            console.log(`error ${JSON.stringify(e)}`);
+            console.error(JSON.stringify(e));
+            return {
+                statusCode: 402,
+                body: JSON.stringify(e)
+            };
+        });
 }
