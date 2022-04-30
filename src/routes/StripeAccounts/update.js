@@ -16,19 +16,15 @@ export async function main(event) {
     console.log(`sets ${JSON.stringify(setVals)}`);
 
     const updateParams = {
-        TableName: process.env.NS_ACCOUNT_TABLE,
+        TableName: process.env.STRIPE_ACCOUNT_TABLE,
         Key: {
-            realm: event.pathParameters.id
+            publishableKey: event.pathParameters.id,
+            realm: event.queryStringParameters.realm
         },
         UpdateExpression: `SET ${setVals.join(",")}`,
         ExpressionAttributeValues: {
-            ...(data.tokenId && { ":tokenId": data.tokenId }),
-            ...(data.tokenSecret && { ":tokenSecret": data.tokenSecret }),
-            ...(data.consumerSecret && {
-                ":consumerSecret": data.consumerSecret
-            }),
-            ...(data.consumerKey && { ":consumerKey": data.consumerKey }),
-            ...(data.url && { ":url": data.url })
+            ...(data.secretKey && { ":secretKey": data.secretKey }),
+            ...(data.webhookSecret && { ":webhookSecret": data.webhookSecret })
         },
         ReturnValues: "ALL_NEW"
     };
