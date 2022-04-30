@@ -1,12 +1,19 @@
-import MyStack from "./MyStack";
+import NetSuiteAccountStack from "./NetSuiteAccountStack";
+import ApiStack from "./ApiStack";
 
 export default function main(app) {
-  // Set default runtime for all functions
-  app.setDefaultFunctionProps({
-    runtime: "nodejs14.x"
-  });
+    // Set default runtime for all functions
+    app.setDefaultFunctionProps({
+        runtime: "nodejs14.x"
+    });
 
-  new MyStack(app, "my-stack");
+    //  new MyStack(app, "my-stack");
 
-  // Add more stacks
+    const nsAccountStack = new NetSuiteAccountStack(app, "ns-account-stack");
+
+    new ApiStack(app, "api-stack", {
+        //       table: nsAccountStack.table
+    });
+
+    // Add more stacks
 }

@@ -18,7 +18,10 @@
     "@serverless-stack/cli": "0.69.7",
     "@serverless-stack/resources": "0.69.7",
     "aws-cdk-lib": "2.15.0",
-    "prettier": "^2.6.2"
+    "aws-sdk": "^2.1125.0",
+    "jsdoc": "^3.6.10",
+    "prettier": "^2.6.2",
+    "uuid": "^8.3.2"
   },
   "prettier": {
     "arrowParens": "avoid",
