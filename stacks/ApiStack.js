@@ -42,7 +42,9 @@ export default class ApiStack extends sst.Stack {
                     "src/routes/StripeAccounts/create.main",
                 "GET    /stripeaccounts": "src/routes/StripeAccounts/list.main",
                 "GET    /stripeaccounts/{id}":
-                    "src/routes/StripeAccounts/get.main"
+                    "src/routes/StripeAccounts/get.main",
+                "PUT    /stripeaccounts/{id}":
+                    "src/routes/StripeAccounts/update.main"
             }
         });
 
