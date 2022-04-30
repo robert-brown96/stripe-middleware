@@ -9,18 +9,18 @@ import * as sst from "@serverless-stack/resources";
  */
 export default class ApiStack extends sst.Stack {
     // public reference to api
-    // api;
+    api;
 
     constructor(scope, id, props) {
         super(scope, id, props);
 
-        //      const { table } = props;
+        const { ns_account_table } = props;
 
         const api = new sst.Api(this, "Api", {
             defaultFunctionProps: {
                 // pass in table to api
                 environment: {
-                    //   tableName: table
+                    ns_account_table: ns_account_table.tableName
                 }
             },
             routes: {
@@ -38,7 +38,7 @@ export default class ApiStack extends sst.Stack {
         });
 
         // Allow the API to access the table
-        //        api.attachPermissions([table]);
+        api.attachPermissions([ns_account_table]);
 
         // Show the API endpoint in the output
         this.addOutputs({

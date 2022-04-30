@@ -17,6 +17,7 @@ export async function main(event) {
         "url"
     ];
     //TODO: add tests to validate returns of promise
+    // only return value if rejected
     const checkPromise = await new Promise((resolve, reject) => {
         requireFields.forEach(f => {
             console.log(`includes ${f} is ${keys.includes(f)}`);
@@ -31,8 +32,9 @@ export async function main(event) {
             body: JSON.stringify({ error: e })
         };
     });
+
+    // return if the promise was rejected
     if (checkPromise) return checkPromise;
-    console.log(JSON.stringify(checkPromise));
 
     return true;
 }

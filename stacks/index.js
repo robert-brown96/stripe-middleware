@@ -10,9 +10,9 @@ export default function main(app) {
     //  new MyStack(app, "my-stack");
 
     const nsAccountStack = new NetSuiteAccountStack(app, "ns-account-stack");
-
+   
     new ApiStack(app, "api-stack", {
-        //       table: nsAccountStack.table
+              ns_account_table: nsAccountStack.table
     });
 
     // Add more stacks
