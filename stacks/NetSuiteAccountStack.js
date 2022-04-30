@@ -4,6 +4,9 @@ export default class StorageStack extends sst.Stack {
     // export table publicly
     table;
 
+    // export bucket publicly
+    bucket;
+
     constructor(scope, id, props) {
         super(scope, id, props);
 
@@ -22,33 +25,19 @@ export default class StorageStack extends sst.Stack {
             primaryIndex: { partitionKey: "realm" }
         });
 
-        this.api = new sst.Api(this, "Api", {
-            defaultFunctionProps: {
-                // pass in table to api
-                environment: {
-                    tableName: this.table
-                },
-                routes: {
-                    "GET    /netsuiteaccounts":
-                        "src/NetsuiteAccounts/list.main",
-                    "POST    /netsuiteaccounts":
-                        "src/NetsuiteAccounts/create.main",
-                    "PUT    /netsuiteaccounts/{id}":
-                        "src/NetsuiteAccounts/update.main",
-                    "DELETE    /netsuiteaccounts/{id}":
-                        "src/NetsuiteAccounts/delete.main",
-                    "GET    /netsuiteaccounts/{id}":
-                        "src/NetsuiteAccounts/get.main"
-                }
+        // Create an S3 bucket
+        this.bucket = new sst.Bucket(this, "Uploads", {
+            s3Bucket: {
+                // Allow client side access to the bucket from a different domain
+                cors: [
+                    {
+                        maxAge: 3000,
+                        allowedOrigins: ["*"],
+                        allowedHeaders: ["*"],
+                        allowedMethods: ["GET", "PUT", "POST", "DELETE", "HEAD"]
+                    }
+                ]
             }
-        });
-
-        // Allow the API to access the table
-        api.attachPermissions([table]);
-
-        // Show the API endpoint in the output
-        this.addOutputs({
-            ApiEndpoint: api.url
         });
     }
 }
