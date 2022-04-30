@@ -1,5 +1,4 @@
 import AWS from "aws-sdk";
-import * as uuid from "uuid";
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
