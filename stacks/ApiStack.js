@@ -14,13 +14,14 @@ export default class ApiStack extends sst.Stack {
     constructor(scope, id, props) {
         super(scope, id, props);
 
-        const { ns_account_table } = props;
+        const { ns_account_table, stripe_account_table } = props;
 
         const api = new sst.Api(this, "Api", {
             defaultFunctionProps: {
                 // pass in table to api
                 environment: {
-                    NS_ACCOUNT_TABLE: ns_account_table.tableName
+                    NS_ACCOUNT_TABLE: ns_account_table.tableName,
+                    STRIPE_ACCOUNT_TABLE: stripe_account_table.tableName
                 }
             },
             routes: {
@@ -36,12 +37,13 @@ export default class ApiStack extends sst.Stack {
                 "GET    /netsuiteaccounts/{id}":
                     "src/routes/NetsuiteAccounts/get.main",
                 "POST    /stripeaccounts":
-                    "src/routes/StripeAccounts/create.main"
+                    "src/routes/StripeAccounts/create.main",
+                "GET    /stripeaccounts": "src/routes/StripeAccounts/list.main"
             }
         });
 
         // Allow the API to access the table
-        api.attachPermissions([ns_account_table]);
+        api.attachPermissions([ns_account_table, stripe_account_table]);
 
         // Show the API endpoint in the output
         this.addOutputs({
