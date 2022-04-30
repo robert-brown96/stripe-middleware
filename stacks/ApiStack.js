@@ -20,7 +20,7 @@ export default class ApiStack extends sst.Stack {
             defaultFunctionProps: {
                 // pass in table to api
                 environment: {
-                    ns_account_table: ns_account_table.tableName
+                    NS_ACCOUNT_TABLE: ns_account_table.tableName
                 }
             },
             routes: {

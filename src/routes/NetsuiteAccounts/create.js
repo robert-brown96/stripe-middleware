@@ -20,7 +20,6 @@ export async function main(event) {
     // only return value if rejected
     const checkPromise = await new Promise((resolve, reject) => {
         requireFields.forEach(f => {
-            console.log(`includes ${f} is ${keys.includes(f)}`);
             if (!keys.includes(f)) {
                 reject(`MUST PROVIDE PARAMETER ${f}`);
             }
@@ -36,5 +35,22 @@ export async function main(event) {
     // return if the promise was rejected
     if (checkPromise) return checkPromise;
 
-    return true;
+    const createParams = {
+        TableName: process.env.NS_ACCOUNT_TABLE,
+        Item: {
+            realm: data.realm,
+            consumerKey: data.consumerKey,
+            consumerSecret: data.consumerSecret,
+            tokenId: data.tokenId,
+            tokenSecret: data.tokenSecret,
+            url: data.url
+        }
+    };
+
+    await dynamoDb.put(createParams).promise();
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify(createParams.Item)
+    };
 }
