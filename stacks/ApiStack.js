@@ -34,7 +34,9 @@ export default class ApiStack extends sst.Stack {
                 "DELETE    /netsuiteaccounts/{id}":
                     "src/routes/NetsuiteAccounts/delete.main",
                 "GET    /netsuiteaccounts/{id}":
-                    "src/routes/NetsuiteAccounts/get.main"
+                    "src/routes/NetsuiteAccounts/get.main",
+                "POST    /stripeaccounts":
+                    "src/routes/StripeAccounts/create.main"
             }
         });
 

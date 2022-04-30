@@ -1,4 +1,5 @@
 import NetSuiteAccountStack from "./NetSuiteAccountStack";
+import StripeAccountStack from "./StripeAccountStack";
 import ApiStack from "./ApiStack";
 
 export default function main(app) {
@@ -7,10 +8,16 @@ export default function main(app) {
         runtime: "nodejs14.x"
     });
 
-    //  new MyStack(app, "my-stack");
-
+    //  create ns account table stack
     const nsAccountStack = new NetSuiteAccountStack(app, "ns-account-stack");
 
+    // create stripe account table stack
+    const stripeAccountStack = new StripeAccountStack(
+        app,
+        "stripe-account-stack"
+    );
+
+    // main api stack
     new ApiStack(app, "api-stack", {
         ns_account_table: nsAccountStack.table
     });
