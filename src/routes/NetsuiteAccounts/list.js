@@ -5,9 +5,13 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 export const main = async event => {
     console.log(JSON.stringify(event));
+    const listParams = {
+        TableName: process.env.NS_ACCOUNT_TABLE
+    };
+    const results = await dynamoDb.scan(listParams).promise();
+
     return {
         statusCode: 200,
-        headers: { "Content-Type": "text/plain" },
-        body: `Hello, World! Your request was received at ${event.requestContext.time}.`
+        body: JSON.stringify(results.Items)
     };
 };

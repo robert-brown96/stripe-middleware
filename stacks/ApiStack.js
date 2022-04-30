@@ -24,6 +24,7 @@ export default class ApiStack extends sst.Stack {
                 }
             },
             routes: {
+                "GET    /": "/src/lambda.handler",
                 "GET    /netsuiteaccounts":
                     "src/routes/NetsuiteAccounts/list.main",
                 "POST   /netsuiteaccounts":
