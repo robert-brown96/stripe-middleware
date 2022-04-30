@@ -16,7 +16,7 @@ export default class ApiStack extends sst.Stack {
 
         const { ns_account_table, stripe_account_table } = props;
 
-        const api = new sst.Api(this, "Api", {
+        this.api = new sst.Api(this, "Api", {
             defaultFunctionProps: {
                 // pass in table to api
                 environment: {
@@ -25,37 +25,16 @@ export default class ApiStack extends sst.Stack {
                 }
             },
             routes: {
-                "GET    /": "/src/lambda.handler",
-                // netsuite account endpoints
-                "GET    /netsuiteaccounts":
-                    "src/routes/NetsuiteAccounts/list.main",
-                "POST   /netsuiteaccounts":
-                    "src/routes/NetsuiteAccounts/create.main",
-                "PUT    /netsuiteaccounts/{id}":
-                    "src/routes/NetsuiteAccounts/update.main",
-                "DELETE    /netsuiteaccounts/{id}":
-                    "src/routes/NetsuiteAccounts/delete.main",
-                "GET    /netsuiteaccounts/{id}":
-                    "src/routes/NetsuiteAccounts/get.main",
-                // stripe account endpoints
-                "POST    /stripeaccounts":
-                    "src/routes/StripeAccounts/create.main",
-                "GET    /stripeaccounts": "src/routes/StripeAccounts/list.main",
-                "GET    /stripeaccounts/{id}":
-                    "src/routes/StripeAccounts/get.main",
-                "PUT    /stripeaccounts/{id}":
-                    "src/routes/StripeAccounts/update.main",
-                "DELETE /stripeaccounts/{id}":
-                    "src/routes/StripeAccounts/delete.main"
+                "GET    /": "/src/lambda.handler"
             }
         });
 
         // Allow the API to access the table
-        api.attachPermissions([ns_account_table, stripe_account_table]);
+        this.api.attachPermissions([ns_account_table, stripe_account_table]);
 
         // Show the API endpoint in the output
         this.addOutputs({
-            ApiEndpoint: api.url
+            ApiEndpoint: this.api.url
         });
     }
 }
