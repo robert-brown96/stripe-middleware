@@ -53,7 +53,10 @@ export async function main(event) {
         .promise()
         .then(res => {
             console.log(`success ${JSON.stringify(res)}`);
-            return JSON.stringify({ success: true, realm: createParams.realm });
+            return JSON.stringify({
+                success: true,
+                realm: createParams.realm
+            });
         })
         .catch(e => {
             console.log(`error ${JSON.stringify(e)}`);

@@ -19,6 +19,9 @@ export default class StorageStack extends sst.Stack {
             // create index
             primaryIndex: {
                 partitionKey: "publishableKey"
+            },
+            globalIndexes: {
+                realmIndex: { partitionKey: "realm" }
             }
         });
     }

@@ -33,9 +33,17 @@ export async function main(event) {
         .update(updateParams)
         .promise()
         .then(res => {
-            return { statusCode: 200, body: JSON.stringify(res) };
+            return {
+                statusCode: 200,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(res)
+            };
         })
         .catch(e => {
-            return { statusCode: 404, body: JSON.stringify(e) };
+            return {
+                statusCode: 404,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(e)
+            };
         });
 }

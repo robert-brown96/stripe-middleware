@@ -48,10 +48,13 @@ export const main = async event => {
         .promise()
         .then(res => {
             console.log(`success ${JSON.stringify(res)}`);
-            return JSON.stringify({
-                success: true,
-                publishableKey: createParams.publishableKey
-            });
+            return {
+                statusCode: 200,
+                body: JSON.stringify({
+                    success: true,
+                    publishableKey: createParams.publishableKey
+                })
+            };
         })
         .catch(e => {
             console.log(`error ${JSON.stringify(e)}`);

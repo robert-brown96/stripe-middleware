@@ -16,13 +16,25 @@ export const main = async event => {
             .delete(delParams)
             .promise()
             .then(res => {
-                return { statusCode: 200, body: JSON.stringify(res) };
+                return {
+                    statusCode: 200,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(res)
+                };
             })
             .catch(e => {
-                return { statusCode: 404, body: JSON.stringify(e) };
+                return {
+                    statusCode: 404,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(e)
+                };
             });
     } catch (e) {
         console.error(e);
-        return { statusCode: 404, body: JSON.stringify({ success: false }) };
+        return {
+            statusCode: 404,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ success: false })
+        };
     }
 };

@@ -46,7 +46,8 @@ export default class ApiStack extends sst.Stack {
                     "src/routes/StripeAccounts/update.main",
                 "DELETE /stripeaccounts/{id}":
                     "src/routes/StripeAccounts/delete.main",
-                $default: "src/catchall.handler"
+                "GET    /accountauth": "src/routes/get-with-ns-auth.main",
+                $default: "src/routes/catchall.handler"
             }
         });
 
