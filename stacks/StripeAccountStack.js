@@ -17,7 +17,7 @@ export default class StorageStack extends sst.Stack {
                 webhookSecret: sst.TableFieldType.STRING
             },
             // create index
-            primaryIndex: { partitionKey: "publishableKey", sortKey: "realm" }
+            primaryIndex: { partitionKey: "realm", sortKey: "publishableKey" }
         });
     }
 }
