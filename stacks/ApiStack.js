@@ -25,7 +25,8 @@ export default class ApiStack extends sst.Stack {
                 }
             },
             routes: {
-                "GET    /": "/src/lambda.handler",
+                $default: "src/catchall.handler",
+                "GET    /": "/src/catchall.handler",
                 // netsuite account endpoints
                 "GET    /netsuiteaccounts":
                     "src/routes/NetsuiteAccounts/list.main",
