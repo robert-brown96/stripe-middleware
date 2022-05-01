@@ -25,8 +25,6 @@ export default class ApiStack extends sst.Stack {
                 }
             },
             routes: {
-                $default: "src/catchall.handler",
-                "GET    /": "/src/catchall.handler",
                 // netsuite account endpoints
                 "GET    /netsuiteaccounts":
                     "src/routes/NetsuiteAccounts/list.main",
@@ -47,7 +45,8 @@ export default class ApiStack extends sst.Stack {
                 "PUT    /stripeaccounts/{id}":
                     "src/routes/StripeAccounts/update.main",
                 "DELETE /stripeaccounts/{id}":
-                    "src/routes/StripeAccounts/delete.main"
+                    "src/routes/StripeAccounts/delete.main",
+                $default: "src/catchall.handler"
             }
         });
 
