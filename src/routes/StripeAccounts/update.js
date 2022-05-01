@@ -18,8 +18,7 @@ export async function main(event) {
     const updateParams = {
         TableName: process.env.STRIPE_ACCOUNT_TABLE,
         Key: {
-            publishableKey: event.pathParameters.id,
-            realm: event.queryStringParameters.realm
+            publishableKey: event.pathParameters.id
         },
         UpdateExpression: `SET ${setVals.join(",")}`,
         ExpressionAttributeValues: {

@@ -9,8 +9,7 @@ export const main = async event => {
             TableName: process.env.STRIPE_ACCOUNT_TABLE,
             // GET rows where parameters match
             Key: {
-                publishableKey: event.pathParameters.id,
-                realm: event.queryStringParameters.realm
+                publishableKey: event.pathParameters.id
             }
         };
         return await dynamoDb
