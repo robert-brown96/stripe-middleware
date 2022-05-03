@@ -1,13 +1,13 @@
-import * as sst from "@serverless-stack/resources";
+import { Stack, Api } from "@serverless-stack/resources";
 
 /**
  *
  *
  * @export
  * @class ApiStack
- * @extends {sst.Stack}
+ * @extends {Stack}
  */
-export default class ApiStack extends sst.Stack {
+export default class ConfigApiStack extends Stack {
     // public reference to api
     api;
 
@@ -16,7 +16,7 @@ export default class ApiStack extends sst.Stack {
 
         const { ns_account_table, stripe_account_table } = props;
 
-        const api = new sst.Api(this, "Api", {
+        const api = new Api(this, "Api", {
             defaultFunctionProps: {
                 // pass in table to api
                 environment: {
@@ -46,7 +46,9 @@ export default class ApiStack extends sst.Stack {
                     "src/routes/StripeAccounts/update.main",
                 "DELETE /stripeaccounts/{id}":
                     "src/routes/StripeAccounts/delete.main",
-                "GET    /accountauth": "src/routes/get-with-ns-auth.main",
+                "GET    /fullauth": "src/routes/get-with-ns-auth.main",
+                "GET    /checkout":
+                    "src/stripe-functions/create-checkout-link.main",
                 $default: "src/routes/catchall.handler"
             }
         });

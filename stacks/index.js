@@ -17,7 +17,7 @@ export default function main(app) {
         "stripe-account-stack"
     );
 
-    // main api stack
+    // main setup api stack
     new ApiStack(app, "api-stack", {
         ns_account_table: nsAccountStack.table,
         stripe_account_table: stripeAccountStack.table
